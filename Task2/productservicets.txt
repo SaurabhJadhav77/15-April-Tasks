@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+
+import { Observable } from 'rxjs';
+
+import { HttpClient } from '@angular/common/http';
+
+import { Produt } from '../Models/Product';
+
+
+@Injectable({
+
+  providedIn: 'root'
+
+})
+
+export class ProductserviceService {
+
+
+  constructor(private http:HttpClient) { }
+
+  getallproduct():Observable<Produt[]>{
+
+    return this.http.get<Produt[]>('https://localhost:44387/api/Product')
+
+  }
+
+}

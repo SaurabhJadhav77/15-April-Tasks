@@ -1,0 +1,68 @@
+<p>servicecomp works!</p>
+
+<h1>Product Details</h1>
+
+<button (click)="displaypro()">Display Product Details</button>
+
+<table *ngIf="proobj" border="solid black" style="border-color: black;background-color: aliceblue;" cellpadding="10px">
+
+    <tr>
+
+        <th>PRODUCT_CODE</th>
+
+        <th>PRODUCT_NAME</th>
+
+        <th>UNITPRICE</th>
+
+        <th>PRODUCT_DESCRIPTION</th>
+
+        <th>CATEGORY</th>
+
+        <th>STOCKINHAND</th>
+
+    </tr>
+
+    <tr *ngFor="let i of proobj">
+
+        <td>
+
+            <input type="text" value="{{i.pcode}}">
+import { Component, OnInit } from '@angular/core';
+
+import { HttpClient } from '@angular/common/http';
+
+import { Produt } from '../Models/Product';
+
+import { ProductserviceService } from '../Service/productservice.service';
+
+@Component({
+
+  selector: 'app-servicecomp',
+
+  templateUrl: './servicecomp.component.html',
+
+  styleUrls: ['./servicecomp.component.css']
+
+})
+
+export class ServicecompComponent implements OnInit {
+
+  proobj:Produt[];
+
+  constructor(private service:ProductserviceService) { }
+
+
+  ngOnInit(): void {
+
+  }
+
+  displaypro():void
+
+  {
+
+    this.service.getallproduct().subscribe(res=>{this.proobj=res});
+
+  }
+
+}
+
