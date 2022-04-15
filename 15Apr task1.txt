@@ -1,0 +1,27 @@
+using consumingwebapi.Models;
+using Newtonsoft.Json;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace consumingwebapi
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            List<Register> dlist = new List<Register>();
+            var httpclient = new HttpClient();
+            var response = await httpclient.GetAsync("https://localhost:44391/api/Register");
+            string result = await response.Content.ReadAsStringAsync();
+            dlist = JsonConvert.DeserializeObject<List<Register>>(result);
+
+            foreach (var i in dlist)
+            {
+                Console.WriteLine($"Name:{i.Fname}\tRID:{i.Rid}\tMAIL ID:{i.Mailid}\tCONTACTNO{i.Contactno}\tSKILLSET:{i.Skillset}");
+            }
+        }
+    }
+}
